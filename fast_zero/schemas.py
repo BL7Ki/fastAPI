@@ -13,6 +13,10 @@ class UserSchema(BaseModel):
     email: EmailStr # validando melhor o email
     password: str
 
+class UserDB(UserSchema): # herda tudo do UserSchema
+    id: int
+
 class UserPublic(BaseModel):
+    id: int
     username: str
     email: EmailStr
