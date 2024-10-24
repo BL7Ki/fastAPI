@@ -3,15 +3,8 @@ from http import (
     # tipo o OK
 )
 
-from fastapi.testclient import (
-    TestClient,  # ja tem um cliente de testes dentro do fastapi
-)
-
-from fast_zero.app import app
-
-
-def test_root_deve_retornar_ok_e_ola_mundo():
-    client = TestClient(app)  # Arrange
+def test_root_deve_retornar_ok_e_ola_mundo(client):
+    #client = TestClient(app)  # Arrange
 
     response = client.get('/')  # Act
     # requisitando o / pra testar ela
@@ -19,3 +12,24 @@ def test_root_deve_retornar_ok_e_ola_mundo():
     assert response.status_code == HTTPStatus.OK  # Assert
     assert response.json() == {'message': 'Olá Mundo!'}  # Assert
     # garantir realmente que a mensagem ola mundo que esta retornando
+
+
+def test_create_user(client):
+    #client = TestClient(app) # Arrange
+
+    response = cliente.post(
+        '/users/',
+        json = { # enviando o UserSchema pra testar
+            'username': 'testando',
+            'email': 'testando@gmail.com',
+            'password': 'senha123',
+        }
+    ) # act
+
+    assert response.status_code == HTTPStatus.CREATED
+    assert response.json() == {
+            'username': 'testando',
+            'email': 'testando@gmail.com',
+            'password': 'senha123',
+            'id': 1
+    }
