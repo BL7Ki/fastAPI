@@ -33,3 +33,35 @@ def test_create_user(client):
             'password': 'senha123',
             'id': 1
     }
+
+def test_read_users(client): # pessimo habito pq ainda n tenho banco de dados real, so o momentaneo
+    #com isso, preciso rodar o post primeiro e depois esse
+
+    response = client.get('/users/') # act
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.json() == {
+        'users': [
+            {
+            'username': 'messi',
+            'email': 'messi@barcelona.com',
+            'id': 1,
+            }
+        ]
+    }
+
+def test_update_user(client):
+    response = client.put(
+        '/users/1',
+        json={
+            'username': 'bob',
+            'email': 'bob@example.com',
+            'password': 'mynewpassword',
+        },
+    )
+    assert response.status_code == HTTPStatus.OK
+    assert response.json() == {
+        'username': 'bob',
+        'email': 'bob@example.com',
+        'id': 1,
+    }

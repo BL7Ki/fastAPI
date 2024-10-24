@@ -1,8 +1,8 @@
 from http import HTTPStatus
 from fastapi import FastAPI  # importa o objeto, a funcao fastapi() em si
-from fast_zero.schemas import (
-    Message, UserSchema, UserPublic, UserDB
-)
+
+from fast_zero.schemas import Message, UserDB, UserList, UserPublic, UserSchema
+
 app = FastAPI()  # instanciando um objeto
 # agora o app tem a funcao da funcao fastapi()
 
@@ -27,3 +27,19 @@ def create_user(user: UserSchema): # a chave user com o valor do schema ja
 # por mais que a chave user pegue o valor userschema, o meu modelo de resposta ta como userpublic, essa é a magia
 # fica status_code=HTTPStatus.CREATED pq post é sempre 201 que retorna e por padrao o fastapi vai sempre retornar 200
 # por isso se for status diferente, sempre bom alterar pra n ficar tudo 200
+
+@app.get('/users/', response_model=UserList) # na mesma url mas muda sua funcao de acordo com os verbos
+def read_users():
+    return {'users': database} # guardar no nosso banco
+
+@app.put('/users/{user_id}', response_model=UserPublic) # userid ta dentro do link 
+def update_user(user_id: int, user: UserSchema): # valor vai ser validado como um inteiro
+    if user_id > len(database) or user_id < 1: 
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail='User not found'
+        ) 
+
+    user_with_id = UserDB(**user.model_dump(), id=user_id) #incrementando lista
+    database[user_id - 1] = user_with_id # substituindo a posicao na lista
+
+    return user_with_id
