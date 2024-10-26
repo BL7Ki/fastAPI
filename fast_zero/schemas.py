@@ -1,5 +1,7 @@
 from pydantic import BaseModel, EmailStr
 
+# Quando um schema não é respeitado pelo cliente, qual o status retornado = 422
+# O FastAPI retorna Internal Server Error quando o servidor não respeita o contrato
 
 class Message(BaseModel):
     message: str

@@ -36,10 +36,30 @@ def read_users():
 def update_user(user_id: int, user: UserSchema): # valor vai ser validado como um inteiro
     if user_id > len(database) or user_id < 1: 
         raise HTTPException(
-            status_code=HTTPStatus.NOT_FOUND, detail='User not found'
+            status_code=HTTPStatus.NOT_FOUND, detail='User not found' # se eu tentar alterar um id que nao existe ainda
         ) 
 
     user_with_id = UserDB(**user.model_dump(), id=user_id) #incrementando lista
     database[user_id - 1] = user_with_id # substituindo a posicao na lista
 
     return user_with_id
+
+@app.delete('/users/{user_id}', response_model=Message)
+def delete_user(user_id: int):
+    if user_id > len(database) or user_id < 1: # mesma logica de n deletar o que nao existe
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail='User not found'
+        )
+
+    del database[user_id - 1]
+
+    return {'message': 'User deleted'}
+
+@app.get('/users/{user_id}', response_model=UserPublic)
+def read_user_id(user_id: int):
+    if user_id > len(database) or user_id < 1:
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail='User not found'
+        )
+
+    return database[user_id - 1]
