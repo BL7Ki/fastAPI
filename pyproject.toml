@@ -32,7 +32,7 @@ test = 'pytest -s -x --cov=fast_zero -vv'
 post_test = 'coverage html'
 
 [tool.ruff]
-line-length = 79
+line-length = 99
 extend-exclude = ['migrations']
 
 [tool.ruff.lint]
