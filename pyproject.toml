@@ -11,6 +11,7 @@ fastapi = {extras = ["standard"], version = "^0.115.2"}
 gh = "^0.0.4"
 pydentic = {extras = ["email"], version = "^0.0.1.dev3"}
 sqlalchemy = "^2.0.36"
+pydantic-settings = "^2.6.0"
 
 
 [tool.poetry.group.dev.dependencies]

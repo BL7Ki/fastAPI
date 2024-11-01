@@ -1,5 +1,8 @@
 # ter esse arquivo para poder organizar melhor nossas herancas de testes
 import pytest
+from sqlalchemy import create_engine, select
+from sqlalchemy.orm import sessionmaker
+from fast_zero.models import table_registry
 from fastapi.testclient import (
     TestClient,  # ja tem um cliente de testes dentro do fastapi
 )
@@ -17,7 +20,7 @@ def session():
     engine = create_engine('sqlite:///:memory:')
     table_registry.metadata.create_all(engine)
 
-    with Session(engine) as session:
-        yield session
+    with Session(engine) as session: # with gerencia recursos
+        yield session # vai rodar ate essa linha e desfazer tudo q foi feito
 
-    table_registry.metadata.drop_all(engine)
+    table_registry.metadata.drop_all(engine) # aqui ele deleta tudo pra recomecar o banco de dados
