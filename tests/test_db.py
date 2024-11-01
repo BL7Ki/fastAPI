@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, select
+from sqlalchemy import select
 
 from fast_zero.models import User
 
@@ -23,7 +23,7 @@ def test_create_user(session):
         # uma area de transferencia entre os dois, como se fosse o github
         session.add(user)
         session.commit()
-        #session.refresh(user)  # so funciona esse refresh uma vez pq depois nem o email nem o username carregam pois sao unique
+        # session.refresh(user)  # so funciona esse refresh uma vez pq depois nem o email nem o username carregam pois sao unique
         result = session.scalar(  # retorna o registro do banco de dados em um objeto python
             select(User).where(User.email == 'messi@barcelona.com')
         )  # bom criar uma fixture para facilitar os testes de banco de dados

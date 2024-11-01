@@ -19,3 +19,14 @@ Ao usar um arquivo .env, o código pode acessar essas variáveis sem a necessida
 
 a base de dados precisa ir para o git ignore
 
+========================================
+
+Migrações em banco de dados são processos para gerenciar e aplicar mudanças na estrutura de um banco de dados de forma organizada e controlada. Elas são comumente usadas em desenvolvimento para garantir que a estrutura do banco (como tabelas, colunas, índices, etc.) evolua conforme novas funcionalidades são implementadas na aplicação. Com migrações, você pode:
+
+Criar e modificar tabelas: Adicionar ou remover tabelas, colunas e alterar tipos de dados.
+Gerenciar histórico de alterações: Cada mudança tem seu próprio "script de migração" com um histórico, permitindo reverter ou reaplicar alterações.
+Sincronizar ambientes: Manter o banco de dados atualizado nos ambientes de desenvolvimento, teste e produção de maneira uniforme.
+Automatizar: Scripts de migração ajudam a automatizar e documentar mudanças, tornando-as reproduzíveis e minimizando erros.
+Em frameworks como Django (Python), Rails (Ruby) e Laravel (PHP), o uso de migrações é muito comum, e elas geralmente são geradas automaticamente, com comandos para criar, aplicar e reverter alterações.
+
+No arquivo alembic.ini: ficam as configurações gerais das nossas migrações. Na pasta migrations foram criados um arquivo chamado env.py, esse arquivo é responsável por como as migrações serão feitas, e o arquivo script.py.mako é um template para as novas migrações.

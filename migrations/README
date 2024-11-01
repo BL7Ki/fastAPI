@@ -1,0 +1,7 @@
+Generic single-database configuration.
+
+migrations funciona como versionador tipo o git só que referente ao seu banco de dados
+
+Migrações em banco de dados são processos para gerenciar e aplicar mudanças na estrutura de um banco de dados de forma organizada e controlada. 
+Elas são comumente usadas em desenvolvimento para garantir que a estrutura do banco (como tabelas, colunas, índices, etc.) 
+evolua conforme novas funcionalidades são implementadas na aplicação
